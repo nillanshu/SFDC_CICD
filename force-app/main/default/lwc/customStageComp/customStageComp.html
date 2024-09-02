@@ -1,0 +1,18 @@
+<template>
+    <div class="slds-grid slds-path slds-m-bottom_medium">
+        <div class="slds-path__nav">
+            <ul class="slds-path__nav-list">
+                <template for:each={stages} for:item="stage">
+                    <li key={stage.value} class="slds-path__item {stage.class}">
+                        <a href="javascript:void(0);" class="slds-path__link">
+                            <span class="slds-path__stage">
+                                <lightning-icon icon-name="utility:check" class="slds-icon slds-icon_x-small" alternative-text="Complete"></lightning-icon>
+                            </span>
+                            <span class="slds-path__title">{stage.label}</span>
+                        </a>
+                    </li>
+                </template>
+            </ul>
+        </div>
+    </div>
+</template>

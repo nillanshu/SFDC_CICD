@@ -1,0 +1,63 @@
+.help-container {
+    position: fixed;
+    top: 50%;
+    left: -72px; /* Adjust this value to control initial visibility */
+    transform: translateY(-50%);
+    transition: left 0.3s;
+    cursor: pointer;
+  }
+  .help-content {
+    display: flex;
+    align-items: center;
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    border-radius: 0 5px 5px 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  .help-content div:first-child {
+    margin-right: 10px;
+    white-space: nowrap;
+  }
+  .help-container:hover {
+    left: 0;
+  }
+
+.slds-modal__container {
+    width: 75%;
+    max-width: 65rem;
+}
+
+.fixed-left {
+    position: absolute;
+    top: 360px;
+    left: -10px;
+    width: 350px; /* Adjust as needed */
+    background-color: white;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.fixed-left-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #ddd;
+}
+
+.fixed-left-close {
+    cursor: pointer;
+}
+
+.fixed-left-content {
+    padding: 1rem;
+}
+
+.datatable-container {
+    max-height: 150px;
+    overflow-y: auto;
+}

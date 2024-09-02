@@ -1,0 +1,15 @@
+<template>
+    <lightning-card>
+        <template if:true={error}>
+                <p>Some Error in getting data</p>
+        </template>
+        <template if:false={error}>
+                <p class="slds-text-heading_medium">Merchandise Records</p>
+                <lightning-datatable
+                    key-field="id"
+                    data={data}
+                    columns={columns}
+                ></lightning-datatable>
+        </template>
+    </lightning-card>
+</template>

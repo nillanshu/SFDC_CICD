@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>60.0</apiVersion>
+    <decisions>
+        <name>Line_Item_Updated</name>
+        <label>Line Item Updated</label>
+        <locationX>182</locationX>
+        <locationY>323</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Invoice_Statement_Status</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Invoice_Statement__r.Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Open</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Merchandise</targetReference>
+            </connector>
+            <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+            <label>Invoice Statement Status</label>
+        </rules>
+    </decisions>
+    <description>test4</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>UpdateMarchandise</name>
+        <dataType>Currency</dataType>
+        <expression>{!$Record.Merchandise__r.Inventory__c - $Record.Units_Sold__c}</expression>
+        <scale>2</scale>
+    </formulas>
+    <formulas>
+        <description>test</description>
+        <name>UpdateMerchandise2</name>
+        <dataType>Number</dataType>
+        <expression>IF(NOT(ISNEW()),
+{!$Record.Merchandise__r.Inventory__c - $Record.Units_Sold__c},
+{!$Record.Merchandise__r.Inventory__c - ($Record.Units_Sold__c - PRIORVALUE($Record.Units_Sold__c))}
+)</expression>
+        <scale>2</scale>
+    </formulas>
+    <interviewLabel>Line Item Record Update {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Line Item Record Update</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Update_Merchandise</name>
+        <label>Update Merchandise</label>
+        <locationX>50</locationX>
+        <locationY>431</locationY>
+        <inputAssignments>
+            <field>Inventory__c</field>
+            <value>
+                <elementReference>UpdateMerchandise2</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record.Merchandise__r</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Line_Item_Updated</targetReference>
+        </connector>
+        <object>Line_Item__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Obsolete</status>
+</Flow>

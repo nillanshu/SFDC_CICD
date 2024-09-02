@@ -1,0 +1,88 @@
+<template>
+    <lightning-card title="Contact List" icon-name="standard:contact">
+        <div class="slds-m-around_medium">
+            <template if:true={contacts}>
+                <lightning-button
+                    label="Load Previous"
+                    onclick={handleLoadMore}
+                    data-id="previous"
+                    class="slds-m-top_small"
+                    variant="brand"
+                ></lightning-button>
+                <template if:true={isRowSelected}>
+                    <lightning-button
+                        label="Delete"
+                        onclick={handleDelete}
+                        class="slds-m-top_small align-right"
+                        variant="brand"
+                    ></lightning-button>
+                    <lightning-button
+                        label="Send Mail"
+                        onclick={handleModalOpen}
+                        class="slds-m-top_small align-right"
+                        variant="brand"
+                    ></lightning-button>
+                </template>
+                <lightning-datatable
+                    key-field="Id"
+                    data={contacts}
+                    columns={columns}
+                    enable-infinite-loading
+                    onrowselection={handleRowSelection}
+                ></lightning-datatable>
+                <lightning-button
+                    label="Load Next"
+                    onclick={handleLoadMore}
+                    data-id="next"
+                    class="slds-m-top_small"
+                    variant="brand"
+                ></lightning-button>
+            </template>
+            <template if:true={errors}>
+                <div class="slds-text-color_error">
+                    An error occurred while loading the contact list: {errors}
+                </div>
+            </template>
+            <template if:true={isModalOpen}>
+                <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                    <div class="slds-modal__container">
+                        <header class="slds-modal__header">
+                            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={handleCloseModal}>
+                                <lightning-icon icon-name="utility:close" variant="inverse" size="small" alternative-text="Close"></lightning-icon>
+                            </button>
+                            <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Quick Mail</h2>
+                        </header>
+                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                            <lightning-input
+                                type="email"
+                                label="To:"
+                                value={mailDetails.to}
+                                onchange={handleInputChange}
+                                data-id="to"
+                            ></lightning-input>
+                            <lightning-input
+                                type="text"
+                                label="Subject:"
+                                value={mailDetails.subject}
+                                onchange={handleInputChange}
+                                data-id="subject"
+                            ></lightning-input>
+                            <lightning-input
+                                type="text"
+                                label="Body"
+                                value={mailDetails.body}
+                                onchange={handleInputChange}
+                                data-id="body"
+                            ></lightning-input>
+                        </div>
+                        <footer class="slds-modal__footer">
+                            <lightning-button variant="brand" label="Save" title="Save" onclick={handleSendMail} class="slds-m-right_small"></lightning-button>
+                            <lightning-button variant="neutral" label="Cancel" title="Cancel" onclick={handleCloseModal}></lightning-button>
+                        </footer>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </template>
+        </div>
+    </lightning-card>
+</template>

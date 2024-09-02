@@ -1,0 +1,21 @@
+<template>
+    <lightning-card title="Contact List" icon-name="standard:contact">
+        <div class="slds-m-around_medium">
+            <template if:true={contacts}>
+                <lightning-datatable
+                    key-field="Id"
+                    data={contacts}
+                    columns={columns}
+                    enable-infinite-loading
+                    hide-checkbox-column
+                    onloadmore={handleLoadMore}
+                ></lightning-datatable>
+            </template>
+            <template if:true={errors}>
+                <div class="slds-text-color_error">
+                    An error occurred while loading the contact list: {errors}
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+</template>

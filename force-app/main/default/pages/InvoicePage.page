@@ -1,0 +1,92 @@
+<apex:page Controller="LineItemList" renderAs="pdf">
+    <div style="font-family: Arial, sans-serif; margin: 0 auto; width: 21cm; height: 1200px; padding: 20px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);">
+        <div style="background-color: #f3f3f3; padding: 20px; height: 120px">
+                <div style="float: left;">
+                    <div style="border-radius: 50%; width: 40px; object-fit: cover; float: left;">
+                        <apex:image alt="logo" title="logo" url="{!URLFOR($Resource.placeholderImg)}"/>
+                    </div>
+                    <div style="padding-left: 20px; float: right;">
+                        <apex:outputText value="ABC"/><br/>
+                        <apex:outputText value="Address: Street 1"/><br/>
+                        <apex:outputText value="Phone: 123456789"/><br/>
+                        <apex:outputText value="Website: dummy.com"/>
+                    </div>
+                </div>
+                <div  style="float: right;">
+                    <h3>INVOICE</h3>
+                    <div>
+                        <h5>Date</h5>
+                        <h5>Invoice No.</h5>
+                    </div>
+                </div>
+        </div>
+        <div style="text-align: right; font-style: italic; margin-top: 10px;">
+            <apex:outputText value="Payment Terms (due on receipt, due in X days)" />
+        </div>
+        <div style="padding: 0 20px;">
+            <div style="width: 48%; float: left;">
+                <h6>BILL TO</h6>
+                <hr/>
+                <h6>ABC</h6>
+                <h6>Street 1, USA</h6>
+                <h6>123456789</h6>
+            </div>
+            <div style="width: 48%; float: right;">
+                <h6>SHIP TO</h6>
+                <hr/>
+                <h6>ABC</h6>
+                <h6>Street 1, USA</h6>
+                <h6>123456789</h6>
+            </div>
+        </div>
+        <div style="padding: 20px;">
+            <apex:form >
+                <apex:dataTable value="{!lineItems}" var="litem">
+                    <apex:column headerValue="Line Item Number">
+                        <apex:outputText value="{!litem.Name}" />
+                    </apex:column>
+                    <apex:column headerValue="Units Sold">
+                        <apex:outputField value="{!litem.Units_Sold__c}" />
+                    </apex:column>
+                    <apex:column headerValue="Unit Price">
+                        <apex:outputField value="{!litem.Unit_Price__c}" />
+                    </apex:column>
+                    <apex:column headerValue="Total">
+                        <apex:outputField value="{!litem.Value__c}" />
+                    </apex:column>
+                </apex:dataTable>
+                <br/>
+            </apex:form>
+        </div>
+        <div style="padding: 20px;">
+            <div style="margin-bottom: 10px;">Remarks / Payment instructions:</div>
+            <div>
+                <div>
+                    <h5>SUBTOTAL</h5>
+                    <p>Rs {!totalValue}</p>
+                </div>
+                <div>
+                    <h5>DISCOUNT</h5>
+                    <p>Rs 1200.00</p>
+                </div>
+                <div>
+                    <h5>DISCOUNTED</h5>
+                    <p>Rs {!totalValue - 1200.00}</p>
+                </div>
+                <div>
+                    <h5>TOTAL TAX</h5>
+                    <p>Rs 600.00</p>
+                </div>
+                <div>
+                    <h5>SHIPPING/HANDLING</h5>
+                    <p>Rs 150.00</p>
+                </div>
+                <div>
+                    <h5>BALANCE DUE</h5>
+                    <p>Rs {!totalValue - 1200.00 - 600.00 - 150.00}</p>
+                </div>
+            </div>
+        </div>
+        <div style="content: ''; display: block; height: 10px; background-color: rgb(255, 102, 0);"></div>
+    </div>
+</apex:page>

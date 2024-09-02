@@ -1,0 +1,35 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" controller="GetQuotes">
+    <aura:attribute name="recordId" type="Id" />
+    <aura:attribute name="selectedQuoteId" type="Id" />
+    <aura:attribute name="buttonDisabled" type="Boolean" default="true" />
+    <aura:attribute name="quotes" type="Object[]" />
+    <aura:attribute name="error" type="String" />
+    <aura:attribute name="columns" type="List" default="[{'label': 'Quote Name', 'fieldName': 'Name'}]" />
+    <aura:attribute name="isLoading" type="Boolean" default="true" />
+    <aura:attribute name="multipleRowsSelected" type="Boolean" default="false" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <lightning:card title="Aura Quotes List" iconName="custom:custom14">
+        <aura:if isTrue="{!v.multipleRowsSelected}">
+            <div style="color:orange;" class="slds-text-align_center slds-p-around_xx-small">Select only one at once<br/></div>
+        </aura:if>
+        <aura:if isTrue="{!v.quotes}">
+            <lightning:datatable
+                aura:id="quotesTable"
+                keyField="Id"
+                data="{!v.quotes}"
+                columns="{!v.columns}"
+                onrowselection="{!c.handleRowSelection}" />
+            <lightning:button variant="brand" label="Open" onclick="{!c.handleClick}" disabled="{!v.buttonDisabled}" />
+        </aura:if>
+        <aura:if isTrue="{!v.error}">
+            <div class="slds-text-color_error">
+                {!v.error}
+            </div>
+        </aura:if>
+        <aura:if isTrue="{!v.isLoading}">
+            <lightning:spinner alternativeText="Loading" size="medium" />
+        </aura:if>
+    </lightning:card>
+    <c:navigationAccelerator aura:id="navigationAccelerator" />
+</aura:component>

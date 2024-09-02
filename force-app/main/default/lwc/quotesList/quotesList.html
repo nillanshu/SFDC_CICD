@@ -1,0 +1,22 @@
+<template>
+    <lightning-card title="Quotes List" icon-name="custom:custom14">
+        <template if:true={quotes}>
+            <lightning-datatable
+                key-field="Id"
+                data={quotes}
+                columns={columns}
+                onrowselection={handleRowSelection}>
+            </lightning-datatable>
+            <lightning-button variant="brand" label="Open" onclick={handleClick} disabled={buttonDisabled}></lightning-button>
+        </template>
+        <template if:true={error}>
+            <div class="slds-text-color_error">
+                {error}
+            </div>
+        </template>
+        <template if:true={isLoading}>
+            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+        </template>
+    </lightning-card>
+    <c-navigation-accelerator></c-navigation-accelerator>
+</template>

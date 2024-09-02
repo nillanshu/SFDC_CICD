@@ -1,0 +1,19 @@
+.slds-path__item.slds-is-active .slds-path__title {
+    font-weight: bold;
+}
+
+.slds-path__item.slds-is-complete .slds-path__stage {
+    background-color: #1589ee;
+}
+
+.slds-path__item.slds-is-complete .slds-path__title {
+    color: #1589ee;
+}
+
+.slds-path__item.slds-is-incomplete .slds-path__title {
+    color: #dddbda;
+}
+
+.slds-path__item .slds-path__title {
+    font-size: 0.875rem;
+}

@@ -1,0 +1,31 @@
+<template>
+    <div class="help-container" onclick={openModal}>
+        <div class="help-content">
+            <div>Need Help</div>
+            <div style="padding-right: 5px; padding-left: 5px;">?</div>
+        </div>
+    </div>
+    <template if:true={isModalOpen}>
+        <div class="fixed-left">
+            <header class="fixed-left-header">
+                <h2 class="slds-text-heading_medium">Key Fields</h2>
+                <lightning-button-icon icon-name="utility:close" alternative-text="close" class="fixed-left-close" onclick={closeModal}></lightning-button-icon>
+            </header>
+            <div class="fixed-left-content slds-p-around_medium">
+                <template if:true={keyFields}>
+                    <div class="datatable-container">
+                        <lightning-datatable
+                            key-field="fieldName"
+                            data={keyFields}
+                            columns={columns}
+                            hide-checkbox-column="true">
+                        </lightning-datatable>
+                    </div>
+                </template>
+                <template if:false={keyFields}>
+                    <p>No key fields available.</p>
+                </template>
+            </div>
+        </div>
+    </template>
+</template>

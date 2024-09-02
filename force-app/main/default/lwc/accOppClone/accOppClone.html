@@ -1,0 +1,47 @@
+<template>
+    <lightning-card title="Account List" icon-name="standard:account">
+        <div class="slds-m-around_medium">
+            <lightning-button
+                label="Clone"
+                onclick={handleClone}
+                class="slds-m-top_small"
+                variant="brand"
+            ></lightning-button>
+            <lightning-datatable
+                key-field="Id"
+                data={accounts}
+                columns={accColumns}
+                enable-infinite-loading
+                onrowselection={handleAccountRowSelection}
+            ></lightning-datatable>
+            
+            <template if:true={errors}>
+                <div class="slds-text-color_error">
+                    An error occurred while loading the account list: {errors}
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+    <div class="slds-m-around_medium">
+        <template if:true={accountsAndOpportunities}>
+            <template for:each={accountsAndOpportunities} for:item="accOpp">
+                <lightning-card key={accOpp.account.Id} title="Opportunity List" icon-name="standard:opportunity">
+                    <div class="slds-m-around_medium">
+                        <lightning-datatable
+                            key-field="Id"
+                            data={accOpp.opportunities}
+                            columns={oppColumns}
+                            enable-infinite-loading
+                            onrowselection={handleOppRowSelection}
+                        ></lightning-datatable>
+                    </div>
+                </lightning-card>
+            </template>
+        </template>
+        <template if:true={oppErrors}>
+            <div class="slds-text-color_error">
+                An error occurred while loading the opportunity list: {oppErrors}
+            </div>
+        </template>
+    </div>
+</template>
