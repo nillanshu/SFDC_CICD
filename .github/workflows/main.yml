@@ -121,6 +121,7 @@ jobs:
               run: |
                 sudo npm install -g n
                 sudo n 20.17.0
+                export PATH="/usr/local/n/versions/node/20.17.0/bin:$PATH"
                 node -v
 
             # Install SFDX scanner
