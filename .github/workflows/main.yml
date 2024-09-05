@@ -35,6 +35,9 @@ jobs:
               with:
                 node-version: '20.x'
 
+            - name: 'Check Node.js version'
+              run: node -v
+
             # The idea is that the VM can access your remote repository
             # because your repository is an sfdx project.
             # This is a default action that allows us to enter the root 
