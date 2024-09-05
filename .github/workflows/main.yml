@@ -119,8 +119,8 @@ jobs:
 
             - name: 'Ensure correct Node.js version for SFDX scanner'
               run: |
-                npm install -g n
-                n 20.17.0
+                sudo npm install -g n
+                sudo n 20.17.0
                 node -v
 
             # Install SFDX scanner
